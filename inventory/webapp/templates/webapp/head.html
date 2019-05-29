@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>{% block title %}Inventory{% endblock %}</title>
+	<meta charset="utf-8" />
+	{% load staticfiles %}
+	<link rel="stylesheet" href="{% static 'webapp/css/bootstrap.min.css' %}" type = "text/css"/>
+	<meta name="viewport" content = "width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'webapp/css/sidebar.css' %}">
+    <link rel="stylesheet" href="{% static 'webapp/css/help.css' %}">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="{% static 'webapp/js/nav-active.js' %}"></script>
+
+
+	<style type="text/css">
+		html,
+		body {
+		  height:100%
+		}
+	</style>
+</head>
+
+<body class="body" style="background-color:#f6f6f6">
+    <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+
+        <div class="navbar-header">
+            <a href="" class="btn btn-info btn-lg" id="menu-toggle"> <span class="glyphicon glyphicon-list"></span></a>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+
+    <div class="collapse navbar-collapse ">
+      <ul class="nav navbar-nav">
+        <li class="active">
+            <a href="/home/">Home</a>
+        </li>
+        <li>
+            <a href="{% url 'webapp:master-add' %}">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"> Add</span>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'webapp:consum-add' %}">
+            <span class="glyphicon glyphicon-circle-arrow-up" aria-hidden="true"> Sell</span>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'webapp:issue-add' %}">
+            <span class="glyphicon glyphicon-circle-arrow-down" aria-hidden="true"> Buy</span>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'webapp:whouse-add' %}">
+            <span class="glyphicon glyphicon-circle-plus" aria-hidden="true"> Ware</span>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'webapp:item-add' %}">
+            <span class="glyphicon glyphicon-circle-plus" aria-hidden="true"> Item</span>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'webapp:master-update' %}">
+            <span class="glyphicon glyphicon-refresh" aria-hidden="true"> Update</span>
+            </a>
+        </li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a href="/logout/" data-toggle="modal" data-target="#logoutModal">
+            <span class="glyphicon glyphicon-off" aria-hidden="true"> Logout </span>
+            </a>
+          </li>
+      </ul>
+    </div>
+</nav>
+    <div id ="wrapper">
+    <!-- sidebar -->
+    <div id = "sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li><a href="/consum">Sold List</a></li>
+            <li><a href="/issue">Bought List</a></li>
+            <li><a href="/whouse">Ware House</a></li>
+            <li><a href="/item">Items</a></li><hr style="border-top: dotted 1px;" />
+            <li><a href="/fsn">FSN</a></li>
+            <li><a href="/abc">ABC</a></li>
+            <li><a href="/not">Dead Stock</a></li>
+            <li><a href="/reorder">Reorder List</a></li><hr>
+            <li><a href="/help">Help?</a><li>
+       </ul>
+    </div>
+
+        <!-- /.page container -->
+    <div id ="page-content-wrapper">
+        <div class="container-fluid">
+            <p>
+                {% block content %}
+                {% endblock %}
+            </p>
+        </div>
+    </div>
+
+    </div>
+
+    <!-- Menu toggle script -->
+    <script>
+        $('#menu-toggle').click(
+         function(e) {
+                e.preventDefault();
+                $('#wrapper').toggleClass("menuDispalyed");
+            });
+    </script>
+
+<!-- floating help -->
+<div class="help-button-wrapper">
+  <ul class="help-list">
+    <li><a href="/help#do">Do Transcations</a></li>
+    <li><a href="/help#view">View Transcations</a></li>
+    <li><a href="/help#general">General Help</a></li>
+  </ul>
+  <button class="help-button">
+    <span>?</span>
+    Get Help
+  </button>
+</div>
+
+<!-- help toggle script -->
+<script>
+    $('.help-button').on('click', function(){
+        $('.help-button-wrapper').toggleClass('expanded');
+    });
+</script>
+
+
+{% include "webapp/includes/footer.html" %}
+</body>
+
+</html>
